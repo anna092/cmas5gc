@@ -9664,7 +9664,8 @@ func handlerWriteReplaceWarningResponse(ran *context.AmfRan, successfulOutcome *
 }
 
 func handleWriteReplaceWarningResponseMain(ran *context.AmfRan, messageIdentifier *ngapType.MessageIdentifier, serialNumber *ngapType.SerialNumber, broadcastCompletedAreaList *ngapType.BroadcastCompletedAreaList, criticalityDiagnostics *ngapType.CriticalityDiagnostics) {
-	ran.Log.Error("Handle WriteReplaceWarningResponse: not implemented")
+	/* anna remove for testing*/
+        //ran.Log.Error("Handle WriteReplaceWarningResponse: not implemented")
 }
 
 func rawBuildHandoverPreparationFailure(aMFUENGAPID *ngapType.AMFUENGAPID, rANUENGAPID *ngapType.RANUENGAPID, cause *ngapType.Cause, criticalityDiagnostics *ngapType.CriticalityDiagnostics) ([]byte, error) {

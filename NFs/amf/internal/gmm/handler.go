@@ -2159,6 +2159,18 @@ func HandleRegistrationComplete(ue *context.AmfUe, accessType models.AccessType,
 		})
 	}
 
+	// Notify CBCF of UE registration complete
+	notification := context.CBCFNotification{
+		IMSI:   ue.Supi,        // Assuming ue.Supi contains IMSI
+		Status: "UE Registration Complete",
+	}
+	err := context.SendNotificationToCBCF(notification)
+	if err != nil {
+		ue.GmmLog.Errorf("Failed to notify CBCF: %v", err)
+	} else {
+		ue.GmmLog.Info("Successfully notified CBCF of UE registration complete")
+	}
+
 	// if registrationComplete.SORTransparentContainer != nil {
 	// 	TODO: if at regsitration procedure 14b, udm provide amf Steering of Roaming info & request an ack,
 	// 	AMF provides the UE's ack with Nudm_SDM_Info (SOR not supportted in this stage)

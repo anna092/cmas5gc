@@ -7,6 +7,9 @@ import (
 	"github.com/free5gc/aper"
 	"github.com/free5gc/ngap/ngapType"
 	"github.com/free5gc/openapi/models"
+	"time"
+
+	"log"
 )
 
 func SendToRan(ran *context.AmfRan, packet []byte) {
@@ -537,6 +540,27 @@ func SendHandoverRequest(sourceUe *context.RanUe, targetRan *context.AmfRan, cau
 	}
 	SendToRanUe(targetUe, pkt)
 }
+
+/* Begins of Anna Modified */
+
+func SendWriteReplaceWarningRequest(ran *context.AmfRan, keyValueN2Information map[string]string) {
+	taiwanTimezone, err := time.LoadLocation("Asia/Taipei")
+	currentTime := time.Now().In(taiwanTimezone)
+	logger.NgapLog.Infof("Send Non Ue N2 Message Transfer at %s", currentTime.Format("2006-01-02 15:04:05.000 UTC-07:00"))
+	if ran == nil {
+		logger.NgapLog.Error("Ran is nil")
+		return
+	}
+	pkt, err := BuildWriteReplaceWarningRequest(keyValueN2Information)
+	if err != nil {
+		log.Fatal(err)
+		logger.NgapLog.Error("Error building request")
+		return
+	}
+	SendToRan(ran, pkt)
+}
+
+/* Ends of Anna Modified */
 
 // pduSessionResourceSwitchedList: provided by AMF, and the transfer data is from SMF
 // pduSessionResourceReleasedList: provided by AMF, and the transfer data is from SMF

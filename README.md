@@ -26,6 +26,7 @@ For more information, please refer to [free5GC official site](https://free5gc.or
 ## Steps to build AMF
 * Download the dependency in NFs/amf/
 ```
+go get github.com/free5gc/amf/internal/sbi/communication
 go get go.mongodb.org/mongo-driver/mongo
 go get github.com/warthog618/sms
 ```

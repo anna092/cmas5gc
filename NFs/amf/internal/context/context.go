@@ -1,6 +1,10 @@
 package context
 
 import (
+	"bytes"
+    "encoding/json"
+    "net/http"
+
 	"fmt"
 	"math"
 	"net"
@@ -92,6 +96,12 @@ type AMFContextEventSubscription struct {
 type SecurityAlgorithm struct {
 	IntegrityOrder []uint8 // slice of security.AlgIntegrityXXX
 	CipheringOrder []uint8 // slice of security.AlgCipheringXXX
+}
+
+type CBCFNotification struct {
+    IMSI   string `json:"imsi"`
+    GUTI   string `json:"guti"`
+    Status string `json:"status"`
 }
 
 func InitAmfContext(context *AMFContext) {
@@ -529,4 +539,23 @@ func (context *AMFContext) Reset() {
 // Create new AMF context
 func GetSelf() *AMFContext {
 	return &amfContext
+}
+
+func SendNotificationToCBCF(notification CBCFNotification) error {
+	jsonData, err := json.Marshal(notification)
+	if err != nil {
+		return err
+	}
+
+	resp, err := http.Post("http://192.168.56.102:8080/ue-registration-notify", "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("failed to notify CBCF, status code: %d", resp.StatusCode)
+	}
+
+	return nil
 }
