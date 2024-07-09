@@ -21,6 +21,13 @@ For more information, please refer to [free5GC official site](https://free5gc.or
 
 ![PWS_thesis-amf](https://github.com/anna092/cmas5gc/assets/113874435/5ef0537b-e56d-48b0-94c9-188329b1b5a7)
 
+## Steps to build AMF
+* Download the dependency in NFs/amf/
+```
+go get go.mongodb.org/mongo-driver/mongo
+go get github.com/warthog618/sms
+
+```
 
 ## More Information
 
