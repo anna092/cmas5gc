@@ -19,7 +19,9 @@ For more information, please refer to [free5GC official site](https://free5gc.or
 * Supported CBCF/PWS-IWF access via the N50 interface.
 * Supported NG-RAN access via the N2 interface.
 
-![PWS_thesis-amf](https://github.com/anna092/cmas5gc/assets/113874435/5ef0537b-e56d-48b0-94c9-188329b1b5a7)
+<p align="center">
+  <img src="https://github.com/anna092/cmas5gc/assets/113874435/5ef0537b-e56d-48b0-94c9-188329b1b5a7" alt="PWS_thesis-amf"/> 
+</p>
 
 ## Steps to build AMF
 * Download the dependency in NFs/amf/
